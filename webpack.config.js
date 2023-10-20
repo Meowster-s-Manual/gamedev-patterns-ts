@@ -33,7 +33,8 @@ module.exports = {
   devtool: 'source-map',
   devServer: {
     hot: true,
-    historyApiFallback: true
+    historyApiFallback: true,
+    liveReload: true
   },
   resolve: {
     extensions: ['.ts', '.js'],
