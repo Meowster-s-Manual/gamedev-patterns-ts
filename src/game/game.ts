@@ -1,5 +1,4 @@
 import { Entity } from '@/utils'
-import { Settings } from '@/settings'
 import { Grid } from '@/grid'
 
 export class Game extends Entity {
