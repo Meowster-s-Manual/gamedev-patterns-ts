@@ -15,11 +15,12 @@ export class Game extends Entity {
 
   public Awake(): void {
     super.Awake()
+    const grid = new Grid()
 
     this._entities.push(
-      new Grid(),
-      new Fleet(Team.A),
-      new Fleet(Team.B),
+      grid,
+      new Fleet(Team.A,grid),
+      new Fleet(Team.B, grid),
       )
 
     for (const entity of this.Entities){
