@@ -33,6 +33,11 @@ export class ShipDrawComponent implements IComponent {
   }
 
   private get Position(): Vector2D {
-    return new Vector2D(100, 100)
+    const position = this.Entity.Position
+    if (!position) {
+      throw new Error('Attempt to draw a ship that has no Position')
+    }
+
+    return position
   }
 }
