@@ -1,5 +1,6 @@
 import { Entity, Vector2D } from '@/utils'
 import { NodeDrawComponent } from './components'
+import { CanvasLayer } from '@/canvas-layer'
 
 export class Node extends Entity {
   constructor(
@@ -10,6 +11,11 @@ export class Node extends Entity {
     super()
   }
 
+    /**
+   * This is a temp variable
+   */
+    public IsActive = false
+
   public get Size(): Vector2D {
     return new Vector2D(
       this.End.x - this.Start.x,
@@ -17,10 +23,37 @@ export class Node extends Entity {
     )
   }
 
+  public Occupies(point: Vector2D): boolean {
+    if (point.x < this.Start.x){
+      return false
+    }
+
+    if (point.x > this.End.x){
+      return false
+    }
+
+    if (point.y < this.Start.y) {
+      return false
+    }
+
+    if (point.y > this.End.y) {
+      return false
+    }
+
+    return true
+  }
+
   public Awake(): void {
     this.AddComponent(new NodeDrawComponent())
 
     super.Awake()
+
+    document.body.addEventListener('click', (e: MouseEvent) => {  
+      const point = CanvasLayer.Background.CalcLocalPointFrom(new Vector2D(e.clientX,e.clientY))
+      if (point && this.Occupies(point)){
+        this.IsActive = true
+      }
+    })
   }
 
   public get Center(): Vector2D {
