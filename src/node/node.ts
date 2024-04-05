@@ -9,10 +9,35 @@ export class Node extends Entity {
   ) {
     super()
   }
+  /**
+   * @todo replace temp property with real functionality
+   */
+  public IsActive = false
+
   public Awake(): void {
     this.AddComponent(new NodeDrawComponent())
 
     super.Awake()
+  }
+
+  public Occupies(point: Vector2D): boolean {
+    if (point.x < this.Start.x) {
+      return false
+    }
+
+    if (point.x > this.End.x) {
+      return false
+    }
+
+    if (point.y < this.Start.y) {
+      return false
+    }
+    
+    if (point.y > this.End.y) {
+      return false
+    }
+
+    return true
   }
 
   public get Center(): Vector2D {
