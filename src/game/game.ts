@@ -2,6 +2,7 @@ import { Entity } from '@/utils'
 import { Grid } from '@/grid'
 import { Fleet } from '@/fleet'
 import { Team } from '@/team'
+import { GameInputComponent } from './components'
 
 export class Game extends Entity {
 
@@ -14,6 +15,7 @@ export class Game extends Entity {
   private _lastTimestamp = 0
 
   public Awake(): void {
+    this.AddComponent(new GameInputComponent())
     super.Awake()
     const grid = new Grid()
 
