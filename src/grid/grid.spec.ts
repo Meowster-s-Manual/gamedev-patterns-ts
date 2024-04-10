@@ -1,13 +1,14 @@
-import { Grid } from './grid'
 import { Node } from '@/node'
 import { Settings } from '@/settings'
+import { GridOnClickComponent } from './components'
+import { Grid, mockGridFactory } from '@/grid' 
 
 describe('>>> Grid', () => {
   const nodeCount = Settings.grid.dimension * Settings.grid.dimension
   let grid: Grid
 
   beforeEach(() => {
-    grid = new Grid()
+    grid = mockGridFactory()
   })
 
   it('should awake and update all children', () => {
@@ -22,5 +23,19 @@ describe('>>> Grid', () => {
 
     grid.Update(0)
     expect(spyNodeUpdate).toBeCalledTimes(nodeCount)
+  })
+
+  it('should awake and update all Components', () => {
+    const spyDrawCompAwake = jest.spyOn(GridOnClickComponent.prototype, 'Awake')
+    const spyDrawCompUpdate = jest.spyOn(GridOnClickComponent.prototype, 'Update')
+
+    expect(spyDrawCompAwake).not.toBeCalled()
+    expect(spyDrawCompUpdate).not.toBeCalled()
+
+    grid.Awake()
+    expect(spyDrawCompAwake).toBeCalled()
+
+    grid.Update(0)
+    expect(spyDrawCompUpdate).toBeCalled()
   })
 })

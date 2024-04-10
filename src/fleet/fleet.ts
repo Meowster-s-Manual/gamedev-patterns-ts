@@ -27,7 +27,7 @@ export class Fleet extends Entity {
   public PrepareShips(): void {
     const dimension = Settings.grid.dimension
     const fleetSize = Settings.ships.fleetSize
-    const nodes = this._grid.Node
+    const nodes = this._grid.Nodes
 
     for (let i = 0; i < fleetSize; i++) {
       const node = this.Team == Team.A ? nodes[i * dimension] : nodes[nodes.length - 1 - i * dimension]
